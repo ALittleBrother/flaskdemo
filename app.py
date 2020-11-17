@@ -6,7 +6,7 @@ app = Flask(__name__)
 def hello():
     if request.method == "POST":
         print("触发器执行了")
-    return "欢迎使用 CODING 代码模板, 更新代码尝试自动构建"
+    return "欢迎使用 CODING 代码模板, 更新代码尝试自动构建, 再次更新"
 
 
 if __name__ == '__main__':
