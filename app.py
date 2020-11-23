@@ -33,11 +33,13 @@ Request method: POST
 def hello():
     if request.method == "POST":
         data = request.data
-        format_data = json.loads(data, encoding="utf-8")
-        print(format_data)
+        data = bytes.decode(data, "utf-8")
+        if data:
+            format_data = json.loads(data, encoding="utf-8")
+            print(format_data)
         print("触发器执行了")
     return "Hello World 😊"
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')    
+    app.run(debug=True, host='0.0.0.0')
