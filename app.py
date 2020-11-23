@@ -38,7 +38,7 @@ def hello():
             format_data = json.loads(data, encoding="utf-8")
             print(format_data)
         print("触发器执行了")
-    return "Hello World 😊"
+    return "Hello World, Nice to meet you! 😊"
 
 
 if __name__ == '__main__':
