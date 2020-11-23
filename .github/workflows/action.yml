@@ -2,11 +2,23 @@ name: Deploy
 
 on:
   push:
-    schedule:
-      - cron: '0 0 0/1 * *'
+    branches: [ master ]
+    tags: [release-v*]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Push Docker
+        run: |
+          docker build . -t ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER
+          docker push ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER
+          docker tag $(docker images ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER -q) ${{ secrets.REGISTRY }}:latest
+          docker push ${{ secrets.REGISTRY }}:latest
+
   pull-docker:
+    needs: [build]
     name: Pull Docker
     runs-on: ubuntu-latest
     steps:
